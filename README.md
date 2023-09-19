@@ -6,3 +6,4 @@
 - [Destructuring is your friend](./destructuring.md)
 - [Fun with loops and Arrays](./loops.md)
 - [Having fun with Promises](https://github.com/josecampana/Fun_with_Promises)
+- [JS Tweaks and Tricks](https://github.com/josecampana/tweaks_and_tricks.md)
