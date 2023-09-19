@@ -361,15 +361,15 @@ console.log(holi ? 'holi' : 'hate you!')
 As you saw in the previous, let's call it chapter, objects can't be passed as value. So what if I waht to use the same object but with some changes without changing the original object? Here comes the cloning. There are 3 ways of cloning:
 
 - spread:
-```
+```js
 { ...object }
 ```
 - Object.assign:
-```
+```js
 Object.assign({}, food)
 ```
 - JSON.parse and JSON.stringify:
-```
+```js
 JSON.parse(JSON.stringify(food))
 ```
 Be careful with the last method cause it wont work for values such as functions or Symbols.
