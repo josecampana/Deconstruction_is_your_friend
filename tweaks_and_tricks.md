@@ -373,3 +373,23 @@ Object.assign({}, food)
 JSON.parse(JSON.stringify(food))
 ```
 Be careful with the last method cause it wont work for values such as functions or Symbols.
+
+
+### **Concatenation of conditions vs includes**
+
+When you find yourself in a case in which you have to test if a variable is x or y or more possibel values you may end with somethign like this:
+```js
+if ( a === 'value1' || a === 'value2' || a === 'value3') {
+	console.log('yay!');
+}
+```
+You can use `includes` instead!
+```js
+if ( ['value1', 'value2', 'value3'].includes(a) ) {
+	console.log('yay!');
+}
+```
+
+
+
+
