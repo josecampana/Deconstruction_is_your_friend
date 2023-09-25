@@ -11,7 +11,7 @@ and we iterate over them.
 ## Arrays and loops
 
 - An array is a list of items and you access them by its position or index.
-- The first position is located at index 0
+- The **first element** is located at **index 0**
 
 You could access an element by doing:
 
