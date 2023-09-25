@@ -85,6 +85,30 @@ Uncaught TypeError: Cannot read properties of undefined (reading 'length')
     at isEmpty (REPL1:1:39)
 ``` 
 
+You could also create this version:
+
+```javascript
+const isEmpty = list => !(list && list.length > 0);
+
+> isEmpty([1,2,3,4])
+false
+> isEmpty([])
+true
+> isEmpty()
+true
+```
+
+```javascript
+const isEmpty = list => !list || list.length === 0;
+
+> isEmpty([1,2,3,4])
+false
+> isEmpty([])
+true
+> isEmpty()
+true
+```
+
 ### .at(idx) VS of [idx]
 
 ```javascript
