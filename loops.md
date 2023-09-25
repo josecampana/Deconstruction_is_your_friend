@@ -117,7 +117,7 @@ true
 
 ![](./img/elegant.jpg)
 
-### .at(idx) VS of [idx]
+### accessing by index: .at(idx) VS of [idx]
 
 ```javascript
 const product = {
