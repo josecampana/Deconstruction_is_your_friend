@@ -38,6 +38,8 @@ undefined //because it starts at 0 so last element is at (list.length - 1)
 [ 'a', 'b', 'c' ]
 ```
 
+### Checking if has values
+
 Let's check if an array has values...
 
 ```javascript
@@ -110,6 +112,10 @@ true
 > isEmpty()
 true
 ```
+
+**I prefeer more elegant this version**: `const isEmpty = list => !Boolean(list.length);`
+
+![](./img/elegant.jpg)
 
 ### .at(idx) VS of [idx]
 
@@ -364,7 +370,7 @@ return Object.keys(products).reduce((acc, key) => {
   return { 
     ...acc, 
     [key]: {
-      ...product, //all the content (keys and values) of product
+      ...product, //a copy of all the product content
       availability: availability[key], //a new key/field "availability" with the availability data of this product
       price: price[key] //a new key/field "price" with the price data of this product
       }
@@ -388,7 +394,7 @@ return Object.values(products).reduce((acc, product) => {
   return { 
     ...acc, 
     [id]: {
-      ...product, //all the content (keys and values) of product
+      ...product, //a copy of all the product content
       availability: availability[id], //a new key/field "availability" with the availability data of this product
       price: price[id] //a new key/field "price" with the price data of this product
       }
@@ -404,7 +410,7 @@ I think I can save some lines of code...
 return Object.values(products).reduce((acc, product) => ({
   ...acc, 
   [product.id]: {
-    ...product, //all the content (keys and values) of product
+    ...product, //a copy of all the product content
     availability: availability[product.id], //a new key/field "availability" with the availability data of this product
     price: price[product.id] //a new key/field "price" with the price data of this product
   }
@@ -417,7 +423,7 @@ Ok, ok, but I need to return it into an array format...
 return Object.values(products).reduce((acc, product) => {
   acc.push(
     {
-      ...product, //all the content (keys and values) of product
+      ...product, //a copy of all the product content
       availability: availability[product.id], //a new key/field "availability" with the availability data of this product
       price: price[product.id] //a new key/field "price" with the price data of this product
       }
@@ -427,20 +433,26 @@ return Object.values(products).reduce((acc, product) => {
 }, []); //note that we initialized with an empty array instead of an empty object
 ```
 
-wait, wait, wait, it make sense to use a `.reduce` to return an array? 
-
-Not in that case, we could simply use `.map` instead of  `.reduce`
+In this case, we could simply use `.map` instead of  `.reduce` (it has no sense because we have a better solution)
 
 ```javascript
 return Object.values(products).map(product => ({
-    ...product, //all the content (keys and values) of product
+    ...product, //a copy of all the product content
     availability: availability[product.id], //a new key/field "availability" with the availability data of this product
     price: price[product.id] //a new key/field "price" with the price data of this product
   })
 );
 ```
 
-So, when do you want to use map and when reduce? It depends of course. Reduce is a powerful function but not everybody understands it. In the example, the best combination was using Object.values + a map over it to return a transformed array of items.
+![](./img/elegant.jpg)
+
+### In a few words...
+
+**When** I must to use **map VS reduce**? **It depends** of course. 
+
+Reduce is a powerful function that allows you to transform an array into another accumulated type (an object, a boolean, an integer, another array, a string, ...) but not everybody understands it. 
+
+In the example, the best combination was using `Object.values()` + `.map()` over it to return an array from a products object.
 
 
 
