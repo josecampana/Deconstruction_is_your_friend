@@ -191,7 +191,7 @@ we could also do:
 undefined
 ```
 
-but it is too long for the same code (and some people does not understand those `&&`). Use `?` instead (this `?` is not the [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator)!)
+but it is too long for the same code (and some people does not understand those `&&`). Use `?` instead (this `?` is not the [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator)!). _ELEGAAAANT..._
 
 ### Loops
  
