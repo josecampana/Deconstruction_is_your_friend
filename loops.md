@@ -98,6 +98,8 @@ true
 true
 ```
 
+or this one if you don't like to negate logic:
+
 ```javascript
 const isEmpty = list => !list || list.length === 0;
 
