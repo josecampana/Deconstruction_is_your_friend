@@ -113,7 +113,7 @@ true
 true
 ```
 
-**I prefeer more elegant this version**: `const isEmpty = list => !Boolean(list.length);`
+**I prefeer this version (more elegant)**: `const isEmpty = list => !Boolean(list.length);`
 
 ![](./img/elegant.jpg)
 
