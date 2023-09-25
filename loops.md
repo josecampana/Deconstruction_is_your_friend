@@ -8,7 +8,7 @@ In our daily job, we use two essential data structure in JS:
 
 and we iterate over them.
 
-## Arrays <sub>[doc](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array)</sub> and loops
+## Arrays and loops
 
 - An array is a list of items and you access them by its position or index.
 - The first position is located at index 0
@@ -176,7 +176,7 @@ Otro que habla de performance, buen artículo: https://leanylabs.com/blog/js-for
 Ejemplo map para mi: https://medium.com/@ExplosionPills/map-vs-for-loop-2b4ce659fb03
 Performance: https://towardsdatascience.com/javascript-performance-test-for-vs-for-each-vs-map-reduce-filter-find-32c1113f19d7
 
-## Objects <sub>[doc](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object)</sub>
+## Objects
 
 - We access an element of an object not per its position or index but per its key.
 
