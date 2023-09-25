@@ -467,3 +467,7 @@ WIP
 - [5 array methods you should use today](https://colintoh.com/blog/5-array-methods-that-you-should-use-today?utm_source=javascriptweekly&utm_medium=email)
 - [From map/reduce to JS functional programming](https://hacks.mozilla.org/2015/01/from-mapreduce-to-javascript-functional-programming/)
 - Bizarre Bonus track: when you try filter/map/reduce and came back to a previous language without this functions, you will miss them... [Map, filter, reduce and flatMap implementations for NSArray (Objective-C)](https://betterprogramming.pub/higher-order-functions-in-objective-c-850f6c90de30)
+
+## Disclaimer
+
+The author of this documentation has nothing to do with _Spy x Family_ or _Futurama_.
