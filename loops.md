@@ -210,7 +210,7 @@ Performance: https://towardsdatascience.com/javascript-performance-test-for-vs-f
 
 ## Objects
 
-- We access an element of an object not per its position or index but per its key.
+- We access an element of an object not by its position or index but by its key.
 
 ```javascript
 const product = {
