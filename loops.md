@@ -918,7 +918,7 @@ const logger = {
 const errorManager = async (error, req, res, next) => {
   const { status, ...err} = error;
 
-  (logger[status] || logger.default)(err);
+  (logger[status.toString()] || logger.default)(err);
 
   return res.status(status).json(err);
 }
