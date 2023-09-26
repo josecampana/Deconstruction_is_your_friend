@@ -51,6 +51,8 @@ undefined //because it starts at 0 so last element is at (list.length - 1)
 [ 'a', 'b', 'c' ]
 ```
 
+[Go to index of content](#index-of-content)
+
 ### Checking if array is empty
 
 Let's check if an array has values...
@@ -130,6 +132,8 @@ true
 
 ![](./img/elegant.jpg)
 
+[Go to index of content](#index-of-content)
+
 ### accessing by index: .at(idx) VS of [idx]
 
 ```javascript
@@ -205,6 +209,8 @@ undefined
 ```
 
 but it is too long for the same code (and some people does not understand those `&&`). Use `?` instead (this `?` is not the [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator)!). _ELEGAAAANT..._
+
+[Go to index of content](#index-of-content)
 
 ### Loops
 
@@ -316,6 +322,9 @@ const b = addId(a);
 
 So, do not obsess with performance until it is really needed (and that could come in a future iteration of your code).
 
+[Go to index of content](#index-of-content)
+
+
 For "normal" loops, take a look at the [MDN loop reference](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Loops_and_iteration). Here, we are going to talk about the array's **triforce**:
 
 
@@ -406,6 +415,7 @@ function addOne (number){
 
 :warning: _.map()_ does a great job when **executing promises in parallel** with **Promise.all**
 
+[Go to index of content](#index-of-content)
 
 #### .filter()
 A member of the triforce. It iterates over an array and let pass only those that meet a condition. The result will be a new array with max, the same number of elements than the original one.
@@ -456,6 +466,7 @@ const pairNumbers = a.filter(isPair);
 
 _%_ is the javascript [remainder operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators#arithmetic_operators), the remainder when you divide two numbers
 
+[Go to index of content](#index-of-content)
 
 #### .reduce()
 A member of the triforce. It iterates over an array and will **accumulate** the values into the same or a different structure: array, object, number, boolean, string...
@@ -525,6 +536,8 @@ const result = a.reduce((acc, n) => acc + n, 0);
 ```
 
 Probabily, the best way will be using [.reduceRight()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)...
+
+[Go to index of content](#index-of-content)
 
 ##### example 2: array => boolean
 
@@ -612,6 +625,8 @@ false
 true
 ```
 
+[Go to index of content](#index-of-content)
+
 ##### example 3: array => string
 
 We have a list of words and we want to create a phase with them. Check the [Chiquito Ipsum](https://www.chiquitoipsum.com/) for a different Lorem Ipsum generator.
@@ -654,6 +669,8 @@ const phrase = words.join(' ');
 'Lorem fistrum mamaar apetecan hasta luego Lucas de la pradera.'
 ```
 
+[Go to index of content](#index-of-content)
+
 ##### example 4: array => object
 
 We have a list of products and we want to transform it into an object to access the products by its id.
@@ -686,7 +703,7 @@ for(let i=0; i<items.length;i++){
 }
 ```
 
-###### For of way
+###### For-of way
 
 ```javascript
 const result = {};
@@ -705,12 +722,16 @@ const result = items.reduce((acc, item) => {
 }, {});
 ```
 
+[Go to index of content](#index-of-content)
+
 #### Conclusions of reduce
 
 :warning: the choice of usage depends on not just the performance alone, there are more factors to be considered, some of them are:
 
 - Code readability and maintainability
 - Ease code
+
+[Go to index of content](#index-of-content)
 
 ## Objects
 
@@ -755,6 +776,8 @@ Avoid it with
 > product?.image?.s1
 undefined
 ```
+
+[Go to index of content](#index-of-content)
 
 ### keys, values, loops and transformations
 
@@ -952,6 +975,8 @@ return Object.values(products).map(product => ({
 
 ![](./img/elegant.jpg)
 
+[Go to index of content](#index-of-content)
+
 ### In a few words...
 
 **When** I must to use **map VS reduce**? **It depends** of course. 
@@ -959,12 +984,6 @@ return Object.values(products).map(product => ({
 Reduce is a powerful function that allows you to transform an array into another accumulated type (an object, a boolean, an integer, another array, a string, ...) but not everybody understands it. 
 
 In the example, the best combination was using `Object.values()` + `.map()` over it to return an array from a products object.
-
-
-
-## Async and Arrays 
-
-WIP
 
 ## Links of interest
 
@@ -978,3 +997,5 @@ WIP
 ## Disclaimer
 
 The author of this documentation has nothing to do with _Spy x Family_, _Futurama_ or _ゼルダの伝説_.
+
+[Go to top](#fun-with-loops-and-casinos)
