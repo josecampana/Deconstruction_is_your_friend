@@ -165,7 +165,7 @@ Let's access the variants of this product:
 undefined
 ```
 
-We could access them without project. Now let's check another product without variants but using "the same code" to access them:
+We could access them without problems. Now let's check another product without variants but using "the same code" to access them:
 
 ```javascript
 const product2 = {
