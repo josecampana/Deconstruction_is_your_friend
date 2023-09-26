@@ -208,8 +208,7 @@ but it is too long for the same code (and some people does not understand those 
 
 In terms of performance, the _for_ loop is the winner when we talk about javascript. But it will depend of course in the operations we want to perform over it.
 
-But you do not need to obsess about performance, it is better to be more obsess about readability. I guess that talking about reduce an readability could look a contradiction for some people (joke).
-
+But you do not need to obsess about performance, it is better to be more obsess about readability. I guess that talking about reduce an readability could look like a contradiction for some people (just joking... it is!).
 
 
 Let's see an example: we have a list of items, we want to generate an id on them and return it into a new array.
@@ -331,9 +330,7 @@ Example: create a function that sums 1 to all the items of an integer's array.
 
 ```javascript
 const a = [ 0, 1, 2, 3, 4, 5 ];
-
 const addOne = item => item + 1;
-
 const b = a.map(addOne);
 
 > a
@@ -360,10 +357,7 @@ This example is quite simple, let's _complicate_ it a bit more: we want to add a
 
 ```javascript
 const a = [ 0, 1, 2, 3, 4, 5 ];
-
 const addOne = number => item => item + number;
-
-
 const b = a.map(addOne(7));
 
 > a
@@ -374,7 +368,7 @@ const b = a.map(addOne(7));
 
 We take profit that a function could return another function to inject the number we want to sum. We will check this more in depth in [Tweaks and Tricks](./tweaks_and_tricks.md).
 
-If you are not use to ES6, maybe this syntax will helps you:
+If you are not use to ES6 syntax, maybe this syntax will helps you to understand it a bit better:
 
 ```javascript
 const a = [ 0, 1, 2, 3, 4, 5 ];
@@ -393,9 +387,13 @@ const b = a.map(addOne(7));
 [ 7, 8, 9, 10, 11, 12 ]
 ```
 
-If this is your case, please do an effort to upgrade your JS syntax:
+**Please do an effort an upgrade your JS syntax to ES6**:
 
 ```javascript
+const addOne = number => item => item + number;
+
+//VS 
+
 function addOne (number){
   return function (item) {
     return item + number;
@@ -403,13 +401,8 @@ function addOne (number){
 }
 ```
 
-VS
 
-`const addOne = number => item => item + number;`
-
-##### Promises executed in parallel
-
-_.map()_ does a great job when executing promises in parallel with **Promise.all**
+:warning: _.map()_ does a great job when **executing promises in parallel** with **Promise.all**
 
 
 #### .filter()
