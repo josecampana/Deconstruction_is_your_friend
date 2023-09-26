@@ -391,5 +391,80 @@ if ( ['value1', 'value2', 'value3'].includes(a) ) {
 ```
 
 
+## **startsWith and endsWith**
+
+When you are checking an error message or any type of string you can do it many ways. But people usally use includes or a regex. There are simpler solutions which not everybody knows. 
+
+Let's imagine an error with the following format: `Checkout Not Found checkoutID: 267af68e-f74a-4aba-bcc8-432fdfb15d90`. How could we solve it?
+
+- includes:
+```js
+if ( errorMessage.includes("Checkout Not Found checkoutID:") ) {
+	console.log('Yes!');
+}
+```
+In this case the string is so specific that maybe includes wont give you any problem but on smaller and less specific texts it can became a problem, you are checking if that string is any where in the source string.
+
+- regex:
+```js
+if ( new RegExp('Checkout Not Found checkoutID: .*').test( errorMessage ) ) {
+	console.log('Yes!');
+}
+```
+You can check it also with a regex and this is not a bad solution it is in fact a good one but when we are checking just how an string starts or ends there's a simpler built in solution: startsWith/endsWith
+
+- startsWith:
+```js
+if ( errorMessage.startsWith("Checkout Not Found checkoutID:") ) {
+	console.log('Yes!');
+}
+```
+This is the simpler way to test if an string start with some string. `endsWith` does the same thing but with the ending of the string.
+
+
+## **End the if hell -> guard clause**
+
+Have you seen something like the following code?
+
+```js
+if( condition1 ) {
+	if (condition2) {
+		console.log('do something');
+	} else {
+		console.log('dont');
+		if ( condition3 ) {
+			console.log('doing something else');
+			if ( condition4 ) {
+				console.log('finish');
+			}
+		}
+	}
+}
+```
+In the end when you have a lot of nested ifs it can become hard to understand whats going on. May I present you, the guard clause! It is just a way of structuring the if that makes the code easier to read. First let me show you the previous code with guard clauses:
+
+```js
+if( !condition1 ) return;
+if ( condition2 ) return console.log('do something');
+
+console.log('dont');
+if ( !condition3 ) return;
+
+console.log('doing something else');
+if ( !condition4 ) return;
+
+console.log('finish');
+```
+As you can see this method removes all the unnecesary nesting and makes the conditions easier to read one after another. The idea is to use a  negative condition and a return statement if the `if` was just to protect the code inside to be run, this means when we have an if without an else. And if we do have an else you use also an if but with the same condition and a return inside.
+
+Remember to use this thoughtfully, you can't use a return if there's code after this in the same function. You can extract this into a function of course.
+
+## **How to create a variable: var, let, const**
+
+As a general rule we should always use `const`. Use `let` when you need to modify the variable value (remember you can modify object values and arrays even if they are const). And don't ever use `var` as this creates a function/global variable.
+
+- const: creates a constant value that can't be modified. Objects and arrays are references so you just can't change the reference but you can change the content.
+- let: creates a variable that can be changed limited to the scope in which it was created.
+- var: creates a variable that can be changed with a function/global scope.
 
 
