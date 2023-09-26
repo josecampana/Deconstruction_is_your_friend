@@ -8,16 +8,17 @@ In our daily job, we use two essential data structure in JS: [Arrays](https://de
   - [Check if an array is empty](#checking-if-array-is-empty)
   - [Accessing elements of an array](#accessing-by-index-atidx-vs-of-idx)
   - [Loops](#loops)
-  - **The triforce**
-    - [map](#map)
-      - [Promise.all](#promiseall)
-    - [filter](#filter)
-    - [reduce](#reduce)
-      - [array VS number](#example-1-array--number)
-      - [array VS boolean](#example-2-array--boolean)
-      - [array VS string](#example-3-array--string)
-      - **[array VS object](#example-4-array--object)**
-    - [Conclusions of reduce](#conclusions-of-reduce)      
+    - **The triforce**
+      - [map](#map)
+        - [Promise.all](#promiseall)
+      - [filter](#filter)
+      - [reduce](#reduce)
+        - [array VS number](#example-1-array--number)
+        - [array VS boolean](#example-2-array--boolean)
+        - [array VS string](#example-3-array--string)
+        - **[array VS object](#example-4-array--object)**
+      - [Conclusions of reduce](#conclusions-of-reduce)    
+    - [Bonus: .includes()](#bonus-includes) 
 - [Objects](#objects)
   - [keys, values, loops and transformations](#keys-values-loops-and-transformations)
 - [Links of interest](#links-of-interest)
@@ -809,6 +810,121 @@ const result = items.reduce((acc, item) => {
 - Ease code
 
 [Go to index of content](#index-of-content)
+
+### Bonus: .includes()
+
+This is not part of the triforce but is interesting in a hacking way. Function [.includes()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) returns true if the element you are checking is into an array.
+
+In our example, we are trying to replace some `if` even `switch` operators by `.includes()` function.
+
+#### Example 1
+
+While fetching an url, we need to check if the `content-type` of the response is JSON or text to know how to parse the response body.
+
+```javascript
+const CONTENT_TYPE = 'content-type';
+const { headers, status } = response;
+const contentType = headers.get(CONTENT_TYPE);
+const response = isJSONLike(contentType) ? data : { text: data };
+```
+
+and we have the following content-type values:
+
+```javascript
+const contentTypes = Object.freeze({
+  TYPE_JSON: 'application/json',
+  TYPE_HTML: 'text/html',
+  TYPE_PLAIN: 'text/plain',
+  TYPE_ERROR: 'application/problem+json',
+  TYPE_VND_IKEA_JSON: 'application/vnd.ikea.api+json',
+  TYPE_PDF: 'application/pdf'
+});
+```
+
+Let's create this `isJSONLike` function:
+
+##### First approach
+```javascript
+const isJSONLike = contentType => {
+  switch(contentType){
+    case contentTypes.TYPE_JSON:
+    case contentTypes.TYPE_ERROR:
+    case contentTypes.TYPE_VND_IKEA_JSON:
+      return true;
+    default:
+      return false;
+  }
+}
+```
+
+We are returning explicit true/false checking boolean conditions... I think we can do it better using boolean algebra...
+
+##### Second approach
+
+```javascript
+const isJSONLike = contentType => contentType === contentTypes.TYPE_JSON || contentType === contentTypes.TYPE_ERROR || contentType === contentTypes.TYPE_VND_IKEA_JSON;
+```
+
+Not bad but I think that it could be shorter (and more easy to maintain)
+
+##### Third approach
+```javascript
+const JSON_LIKE = [TYPE_JSON, TYPE_ERROR, TYPE_VND_IKEA_JSON];
+const isJSONLike = contentType => JSON_LIKE.includes(contentType);
+```
+
+To add a new content type to the types that are json, just add it into the array. You don't need to change your condition.
+
+#### Example 2
+
+We are creating an [error handler for ExpressJS](https://expressjs.com/en/guide/error-handling.html). 
+
+This error handler will return the error but we want to log in the console not all the errors but some of them (depending on the status code of the error). 
+
+We want to skip from logging the 401, 403, 404 and 410 status code.
+
+```javascript
+const errorManager = async (error, req, res, next) => {
+  const { status, ...err} = error;
+
+  if(isLogableError(status)){
+    console.error(error);
+  }
+
+  return res.status(status).json(err);
+}
+```
+
+We could create some ifs, a switch and so on, let's do it with `.include()` directly:
+
+```javascript
+const isLogableError = status => ['401', '403', '404', '410'].includes(status.toString());
+```
+
+As a bonus, we want to log as "warning" the 410 and 404, skip 401 and 403 and log as "error" the other ones, 
+
+Let's go directly for the "object of functions" approach:
+
+```javascript
+const logger = {
+  '401': () => undefined,
+  '403': () => undefined,
+  '404': err => console.warn(err),
+  '410': err => console.warn(err),
+  default: err => console.error(err)
+};
+
+const errorManager = async (error, req, res, next) => {
+  const { status, ...err} = error;
+
+  (logger[status] || logger.default)(err);
+
+  return res.status(status).json(err);
+}
+```
+
+- If we have a 500 status code, `logger[status]` will be `undefined` (because we didn't define an explicit error logger for 500 status code) so it will grab logger.default (that will be `err => console.error(err)`)
+- If we have a 401 or 403, we will receive the function `() => undefined` that when it will be launched it will do nothing.
 
 ## Objects
 
