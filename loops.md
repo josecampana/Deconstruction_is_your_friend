@@ -12,10 +12,12 @@ In our daily job, we use two essential data structure in JS: [Arrays](https://de
     - [map](#map)
     - [filter](#filter)
     - [reduce](#reduce)
-      - [array VS number](#example-1-reduce-that-will-return-a-number)
-      - [array VS boolean](#example-2-reduce-that-will-return-a-boolean)
-      - [array VS string](#example-3-reduce-that-will-return-a-string)
-      - **[array VS object](#example-4-reduce-that-will-return-an-object)**
+      - [array VS number](#example-1-array--number)
+      - [array VS boolean](#example-2-array--boolean)
+      - [array VS string](#example-3-array--string)
+      - **[array VS object](#example-4-array--object)**
+    - [Conclusions of reduce](#conclusions-of-reduce)
+      
 - [Objects](#objects)
   - [keys, values, loops and transformations](#keys-values-loops-and-transformations)
 
@@ -457,6 +459,7 @@ _%_ is the javascript [remainder operator](https://developer.mozilla.org/en-US/d
 
 #### .reduce()
 A member of the triforce. It iterates over an array and will **accumulate** the values into the same or a different structure: array, object, number, boolean, string...
+
 ![](./img/triforce.png).
 
 .reduce() has two arguments: 
@@ -466,7 +469,7 @@ A member of the triforce. It iterates over an array and will **accumulate** the 
 
 So, _reduce_ is a great operation to do array transformations (that won't result into a new array).
 
-##### example 1: reduce that will return a number
+##### example 1: array => number
 
 We want to sum all the numbers of a list `[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]`
 
@@ -521,7 +524,9 @@ const result = a.reduce((acc, n) => acc + n, 0);
 120
 ```
 
-##### example 2: reduce that will return a boolean
+Probabily, the best way will be using [.reduceRight()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)...
+
+##### example 2: array => boolean
 
 We want to know if all the elements of a list are true.
 
@@ -574,7 +579,7 @@ true
 ```
 
 
-##### Reduce way
+###### Reduce way
 ```javascript
 const a = [true, true, true, true, true, true, false, true];
 const b = [true, true, true, true];
@@ -590,7 +595,7 @@ false
 true
 ```
 
-##### The best way
+###### The best way: .every()
 
 Check for _[.every()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/every)_ and _[.some()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/some)_ functions
 
@@ -605,9 +610,9 @@ const allTrueB = b.every(n => n);
 false
 > allTrueB
 true
-``````
+```
 
-##### example 3: reduce that will return a string
+##### example 3: array => string
 
 We have a list of words and we want to create a phase with them. Check the [Chiquito Ipsum](https://www.chiquitoipsum.com/) for a different Lorem Ipsum generator.
 
@@ -637,7 +642,9 @@ const phrase = words.reduce((acc, word) => phrase +=`${word} `, '');
 
 Both solutions are not perfect: they put a blank space at the end of the phrase. It could be fixed easily with a `.trim()` but let's check a best solution.
 
-###### The best way
+###### The best way: .join()
+
+Using [.join()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/join) function:
 
 ```javascript
 const words = ['Lorem', 'fistrum', 'mamaar', 'apetecan', 'hasta', 'luego', 'Lucas', 'de', 'la', 'pradera.'];
@@ -647,12 +654,63 @@ const phrase = words.join(' ');
 'Lorem fistrum mamaar apetecan hasta luego Lucas de la pradera.'
 ```
 
-##### example 4: reduce that will return an object
+##### example 4: array => object
 
+We have a list of products and we want to transform it into an object to access the products by its id.
 
-Otro que habla de performance, buen artículo: https://leanylabs.com/blog/js-forEach-map-reduce-vs-for-for_of/
-Ejemplo map para mi: https://medium.com/@ExplosionPills/map-vs-for-loop-2b4ce659fb03
-Performance: https://towardsdatascience.com/javascript-performance-test-for-vs-for-each-vs-map-reduce-filter-find-32c1113f19d7
+```javascript
+const items = [
+  {
+    id: '00263850',
+    name: 'Billy',
+    description: 'Librería, blanco, 80x28x202 cm',
+    image: 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s1.jpg'
+  },
+  {
+    id: '90404209',
+    name: 'Billy',
+    description: 'Librería, chapa roble tinte blanco, 80x28x202 cm',
+    image: 'https://www.ikea.com/es/es/images/products/billy-libreria-chapa-roble-tinte-blanco__0564818_pe664196_s1.jpg'
+  }
+];
+```
+
+###### For way
+```javascript
+const result = {};
+
+for(let i=0; i<items.length;i++){
+  const item = items[i];
+
+  result[item.id] = item;
+}
+```
+
+###### For of way
+
+```javascript
+const result = {};
+
+for(item of items){
+  result[item.id] = item;
+}
+```
+
+###### Reduce way
+```javascript
+const result = items.reduce((acc, item) => {
+  acc[item.id] = item;
+
+  return acc;
+}, {});
+```
+
+#### Conclusions of reduce
+
+:warning: the choice of usage depends on not just the performance alone, there are more factors to be considered, some of them are:
+
+- Code readability and maintainability
+- Ease code
 
 ## Objects
 
@@ -703,17 +761,19 @@ undefined
 Let's guess that an API returns as a list of products like this:
 
 ```javascript
-const items = [{
-  id: '00263850',
-  name: 'Billy',
-  description: 'Librería, blanco, 80x28x202 cm',
-  image: {
-    'altText': 'BILLY Librería, blanco, 80x28x202 cm',
-    'S1': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s1.jpg',
-    'S2': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s2.jpg',
-    'S3': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s3.jpg',
-    'S4': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s4.jpg',
-    'S5': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s5.jpg'
+const items = [
+  {
+    id: '00263850',
+    name: 'Billy',
+    description: 'Librería, blanco, 80x28x202 cm',
+    image: {
+      'altText': 'BILLY Librería, blanco, 80x28x202 cm',
+      'S1': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s1.jpg',
+      'S2': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s2.jpg',
+      'S3': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s3.jpg',
+      'S4': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s4.jpg',
+      'S5': 'https://www.ikea.com/es/es/images/products/billy-libreria-blanco__0625599_pe692385_s5.jpg'
+    }
   },
   {
     id: '90404209',
@@ -728,7 +788,7 @@ const items = [{
       'S5': 'https://www.ikea.com/es/es/images/products/billy-libreria-chapa-roble-tinte-blanco__0564818_pe664196_s5.jpg'
     }
   }
-}]
+]
 ```
 
 That does not means that you need to work with this structure, you could transform it into a more convenient data structure to access its elements like objects (in this example, we want to access the elements by its product id).
