@@ -332,7 +332,7 @@ For "normal" loops, take a look at the [MDN loop reference](https://developer.mo
 
 
 #### .map()
-A member of the triforce. It iterates over an array and return a new array array with the same number of items as the original. 
+A member of the triforce. It iterates over an array and return a new array with the same number of items as the original. 
 
 ![](./img/triforce.png)
 
@@ -369,8 +369,8 @@ This example is quite simple, let's _complicate_ it a bit more: we want to add a
 
 ```javascript
 const a = [ 0, 1, 2, 3, 4, 5 ];
-const addOne = number => item => item + number;
-const b = a.map(addOne(7));
+const addNumber = number => item => item + number;
+const b = a.map(addNumber(7));
 
 > a
 [ 0, 1, 2, 3, 4, 5 ]
