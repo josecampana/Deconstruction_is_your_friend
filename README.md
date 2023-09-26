@@ -1,5 +1,7 @@
 # Having fun with Javascript
 
+## Index
+
 ![](./img/js.png)
 
 - [MDN JS](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/)
