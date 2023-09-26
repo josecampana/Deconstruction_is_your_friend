@@ -832,7 +832,7 @@ return isJSONLike(contentType) ? response.json() : response.text();
 and we have the following content-type values:
 
 ```javascript
-const contentTypes = Object.freeze({
+const types = Object.freeze({
   TYPE_JSON: 'application/json',
   TYPE_HTML: 'text/html',
   TYPE_PLAIN: 'text/plain',
@@ -848,9 +848,9 @@ Let's create this `isJSONLike` function:
 ```javascript
 const isJSONLike = contentType => {
   switch(contentType){
-    case contentTypes.TYPE_JSON:
-    case contentTypes.TYPE_ERROR:
-    case contentTypes.TYPE_VND_IKEA_JSON:
+    case types.TYPE_JSON:
+    case types.TYPE_ERROR:
+    case types.TYPE_VND_IKEA_JSON:
       return true;
     default:
       return false;
@@ -863,14 +863,14 @@ We are returning explicit true/false checking boolean conditions... I think we c
 ##### Second approach
 
 ```javascript
-const isJSONLike = contentType => contentType === contentTypes.TYPE_JSON || contentType === contentTypes.TYPE_ERROR || contentType === contentTypes.TYPE_VND_IKEA_JSON;
+const isJSONLike = contentType => contentType === types.TYPE_JSON || contentType === types.TYPE_ERROR || contentType === types.TYPE_VND_IKEA_JSON;
 ```
 
 Not bad but I think that it could be shorter (and more easy to maintain)
 
 ##### Third approach
 ```javascript
-const JSON_LIKE = [TYPE_JSON, TYPE_ERROR, TYPE_VND_IKEA_JSON];
+const JSON_LIKE = [types.TYPE_JSON, types.TYPE_ERROR, types.TYPE_VND_IKEA_JSON];
 const isJSONLike = contentType => JSON_LIKE.includes(contentType);
 ```
 
