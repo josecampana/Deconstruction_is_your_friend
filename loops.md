@@ -10,16 +10,17 @@ In our daily job, we use two essential data structure in JS: [Arrays](https://de
   - [Loops](#loops)
   - **The triforce**
     - [map](#map)
+      - [Promise.all](#promiseall)
     - [filter](#filter)
     - [reduce](#reduce)
       - [array VS number](#example-1-array--number)
       - [array VS boolean](#example-2-array--boolean)
       - [array VS string](#example-3-array--string)
       - **[array VS object](#example-4-array--object)**
-    - [Conclusions of reduce](#conclusions-of-reduce)
-      
+    - [Conclusions of reduce](#conclusions-of-reduce)      
 - [Objects](#objects)
   - [keys, values, loops and transformations](#keys-values-loops-and-transformations)
+- [Links of interest](#links-of-interest)
 
 ## Arrays and loops
 
@@ -411,9 +412,85 @@ function addOne (number){
   }
 }
 ```
+##### Promise.all()
 
+:warning: _.map()_ does a great job when **executing promises in parallel** with **[Promise.all](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)**
 
-:warning: _.map()_ does a great job when **executing promises in parallel** with **Promise.all**
+As Promise.all takes an array of promises as parameter and .map function takes a function as parameter, we can things like:
+
+```javascript
+const getProduct = async (id, {retailUnit, language} = {}) => {
+  const url = `/range/v1/${retailUnit}/${language}/products/${id}`;
+
+  return fetch(url);
+}
+
+const ids = ['00263850', '90404209'];
+const items = await Promise.all(ids.map(id=>getProduct(id, { retailUnit: es, language: es })));
+```
+
+items will be the array of product details where:
+- items[0] has the details for product 00263850 that is the first product in the promises array
+- items[1] has the details for product 90404209 that is the second one in the promises array
+
+or even:
+
+```javascript
+const getProduct = async (id, {retailUnit, language} = {}) => {
+  const url = `/range/v1/${retailUnit}/${language}/products/${id}`;
+
+  return fetch(url);
+}
+
+const ids = ['00263850', '90404209'];
+const items = await Promise.all(ids.map(async id=> (
+  { 
+    [id]: await getProduct(id, { retailUnit: es, language: es }) 
+  }) 
+)).then(res => res.reduce((acc, item) => ({...acc, ...item}), {}));
+```
+
+Now, items is an object like:
+
+```javascript
+{
+  '00263850': {
+    ...
+  },
+  '90404209': {
+    ...
+  }
+}
+```
+
+Let's clean up a little to not boom our brains:
+
+```javascript
+const getProduct = async (id, {retailUnit, language} = {}) => {
+  const url = `/range/v1/${retailUnit}/${language}/products/${id}`;
+
+  return fetch(url);
+}
+
+const ids = ['00263850', '90404209'];
+const getResult = ({retailUnit, language}) => async id => {
+  const res = {};
+  res.id = await getProduct(id, { retailUnit, language});
+
+  return res;
+}
+
+const parser = res => {
+  return res.reduce((acc, item) => {
+    return {
+      ...acc,
+      ...item
+    };
+  }, {});
+}
+
+const items = await Promise.all(ids.map(getResult({retailUnit: es, language: es}))).then(parser);
+```
 
 [Go to index of content](#index-of-content)
 
