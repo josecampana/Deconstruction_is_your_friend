@@ -825,7 +825,8 @@ While fetching an url, we need to check if the `content-type` of the response is
 const CONTENT_TYPE = 'content-type';
 const { headers, status } = response;
 const contentType = headers.get(CONTENT_TYPE);
-const response = isJSONLike(contentType) ? data : { text: data };
+
+return isJSONLike(contentType) ? response.json() : response.text();
 ```
 
 and we have the following content-type values:
