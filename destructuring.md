@@ -11,7 +11,8 @@
 
 ## Objects
 
-**Tip** do you know that the following code:
+**Tip** 
+Do you know that the following code:
 
 ```javascript
 const id = '12345';
