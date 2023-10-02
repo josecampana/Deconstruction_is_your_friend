@@ -33,6 +33,8 @@ return { id: id, name: name};
 
 ## Objects
 
+Offtopic: a function to clone objects: `const clone = obj => structuredClone(obj);`
+
 Let's play to get some specific properties from an object
 ```javascript
 const z = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7 };
@@ -220,14 +222,31 @@ module.exports.get = async ({ id, retailUnit, postalCode, store, transactionId }
 
 ### Bonus track
 
+You could also destructure level 2, level 3, ..., level n properties
+
+```javascript
 const options = { logLevel: 'error', cache: { ttl: 3600 } };
+
 const { logLevel, cache: { ttl: TTL }} = options
+
 > logLevel
 'error'
 > TTL
 3600
-> options
-{ logLevel: 'error', cache: { ttl: 3600 } }
+```
+
+this is equivalent to:
+
+```javascript
+const options = { logLevel: 'error', cache: { ttl: 3600 } };
+const logLevel = options.logLevel;
+const TTL = options.cache.ttl;
+
+> logLevel
+'error'
+> TTL
+3600
+```
 
 ## Array
 
