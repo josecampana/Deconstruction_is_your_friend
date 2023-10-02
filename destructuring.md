@@ -33,7 +33,7 @@ return { id: id, name: name};
 
 ## Objects
 
-Offtopic: a function to clone objects: `const clone = obj => structuredClone(obj);`
+**Offtopic** a function to clone objects: `const clone = obj => structuredClone(obj);`
 
 Let's play to get some specific properties from an object
 ```javascript
