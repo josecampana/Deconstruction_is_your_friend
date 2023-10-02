@@ -11,7 +11,7 @@
 
 ## Objects
 
-Do you know that the following code:
+Maybe you already know but the following code:
 
 ```javascript
 const id = '12345';
@@ -20,7 +20,7 @@ const name = 'Billy';
 return { id, name };
 ```
 
-is **equivalent** to:
+is **equivalent** to this one:
 
 ```javascript
 const id = '12345';
@@ -28,7 +28,7 @@ const name = 'Billy';
 
 return { id: id, name: name};
 ```
-?
+
 
 
 Let's play to get some specific properties from an object
