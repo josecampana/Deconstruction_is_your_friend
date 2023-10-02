@@ -218,6 +218,17 @@ module.exports.get = async ({ id, retailUnit, postalCode, store, transactionId }
 };
 ```
 
+### Bonus track
+
+const options = { logLevel: 'error', cache: { ttl: 3600 } };
+const { logLevel, cache: { ttl: TTL }} = options
+> logLevel
+'error'
+> TTL
+3600
+> options
+{ logLevel: 'error', cache: { ttl: 3600 } }
+
 ## Array
 
 For the arrays, it is all about of index position.
