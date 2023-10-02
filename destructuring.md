@@ -11,8 +11,6 @@
 
 ## Objects
 
-**Tip** 
-
 Do you know that the following code:
 
 ```javascript
