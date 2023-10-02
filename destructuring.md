@@ -9,7 +9,7 @@
 - you could destructure an array
 - bonus track: you could also destructure strings
 
-## Objects
+<hr>
 
 Maybe you already know but the following code:
 
@@ -29,7 +29,9 @@ const name = 'Billy';
 return { id: id, name: name};
 ```
 
+<hr>
 
+## Objects
 
 Let's play to get some specific properties from an object
 ```javascript
