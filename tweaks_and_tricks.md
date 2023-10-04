@@ -496,3 +496,45 @@ Object.groupBy(projects, ({ status }) => status)
 ```
 
 As you can see this built in function simplify the way of creating objects from an array of objects taking into a ccount a value. Of course you can use this also to group any way you image you have have to provide the function that returns the category of each object.
+
+## **finally**
+
+`.finally` is a promise callback which is not used that much. It is trigger after then or catch, it doesnt matter if the promise fails or not, this will be triggered anyways. Most of the use cases will be covered byt just using then or catch but this callback can be very usefull in some situations.
+
+Example:
+Image you you have to send a request to a server and in the meanwhile you have to display a loading icon. Let's use react for this example:
+
+```js
+const component = () => {
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		(async () => {
+			setLoading(true);
+			const response = await fetch('/save/whatever');
+			setLoading(false);
+		})()
+	}, [])
+
+	// more code ...
+}
+```
+I know this can be improved but just for the sake of learning let's focus on setLoading and what would happen if the request fails. What do you think?
+
+Yeah if it fails setLoading would never be trigger and this component will be forever loading. We could add a catch to handle that and then use setloading but there a built in solution, `.finally`.
+
+```js
+const component = () => {
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		(async () => {
+			setLoading(true);
+			const response = await fetch('/save/whatever').finally(() => setLoading(false));
+		})()
+	}, [])
+
+	// more code ...
+}
+```
+This will ensure that setLoading is always turned to false when the request is resolved or rejected and if you dont need a catch you dont need to write it.
