@@ -4,6 +4,71 @@
 
 This section is meant for you to be able to grasp some not so common but so useful features of javascript.
 
+## **How to create a variable: var, let, const**
+
+As a general rule we should always use `const`. Use `let` when you need to modify the variable value (remember you can modify object values and arrays even if they are const). And don't ever use `var` as this creates a function/global variable.
+
+- const: creates a constant value that can't be modified. Objects and arrays are references so you just can't change the reference but you can change the content.
+- let: creates a variable that can be changed limited to the scope in which it was created.
+- var: creates a variable that can be changed with a function/global scope.
+
+### **Reference and value**
+
+In javascript is basic to understand what do we mena with value and reference. A variable can be passed as value or as reference. 
+Objects and array are ALWAYS references and the rest of type of variable are ALWAYS passed as values.
+
+This is relevant cause if you change the value of a param received are reference it will change the original param.
+
+Reference:
+```js
+let a = { holi: true }
+const dangerousFunction = (param) => {
+	param.holi = false;
+}
+dangerousFunction(a);
+console.log(a.holi ? 'holi' : 'hate you!')
+// hate you!
+```
+Value:
+```js
+let holi = true
+const dangerousFunction = (param) => {
+	param.holi = false;
+}
+dangerousFunction(holi);
+console.log(holi ? 'holi' : 'hate you!')
+// holi
+```
+
+### **Falsable values**
+
+We need to be aware that some values are used as false in case we use then in a boolean condition such as an if o casting it to boolean. This values are:
+- false
+```js
+console.log(false ? 'no falsable' : 'falsable')
+// falsable
+```
+- 0
+```js
+console.log(0 ? 'no falsable' : 'falsable')
+// falsable
+```
+- ""
+```js
+console.log("" ? 'no falsable' : 'falsable')
+// falsable
+```
+- null
+```js
+console.log(null ? 'no falsable' : 'falsable')
+// falsable
+```
+- undefined
+```js
+console.log(undefined ? 'no falsable' : 'falsable')
+// falsable
+```
+
 ### **Self-invoking functions**
 
 What if you need to create a function to just to run it once? You dont even need to name the function, you can use arrow function syntax and let the function to invoke itself. 
@@ -189,35 +254,6 @@ Expert Solution, refactor repetitive code:
  console.log(condition ? 'the condition is true': 'the condition is false');
 ```
 
-### **Falsable values**
-
-We need to be aware that some values are used as false in case we use then in a boolean condition such as an if o casting it to boolean. This values are:
-- false
-```js
-console.log(false ? 'no falsable' : 'falsable')
-// falsable
-```
-- 0
-```js
-console.log(0 ? 'no falsable' : 'falsable')
-// falsable
-```
-- ""
-```js
-console.log("" ? 'no falsable' : 'falsable')
-// falsable
-```
-- null
-```js
-console.log(null ? 'no falsable' : 'falsable')
-// falsable
-```
-- undefined
-```js
-console.log(undefined ? 'no falsable' : 'falsable')
-// falsable
-```
-
 ### **?? and ||**
 
 This are very useful operators but people struggle to differentiate them.
@@ -328,34 +364,6 @@ const g = "see";
 console.log([a,b,c,d,e,f,g].join(" "));
 ```
 
-### **Reference and value**
-
-In javascript is basic to understand what do we mena with value and reference. A variable can be passed as value or as reference. 
-Objects and array are ALWAYS references and the rest of type of variable are ALWAYS passed as values.
-
-This is relevant cause if you change the value of a param received are reference it will change the original param.
-
-Reference:
-```js
-let a = { holi: true }
-const dangerousFunction = (param) => {
-	param.holi = false;
-}
-dangerousFunction(a);
-console.log(a.holi ? 'holi' : 'hate you!')
-// hate you!
-```
-Value:
-```js
-let holi = true
-const dangerousFunction = (param) => {
-	param.holi = false;
-}
-dangerousFunction(holi);
-console.log(holi ? 'holi' : 'hate you!')
-// holi
-```
-
 ### **Object cloning**
 
 As you saw in the previous, let's call it chapter, objects can't be passed as value. So what if I waht to use the same object but with some changes without changing the original object? Here comes the cloning. There are 3 ways of cloning:
@@ -372,8 +380,11 @@ Object.assign({}, food)
 ```js
 JSON.parse(JSON.stringify(food))
 ```
-Be careful with the last method cause it wont work for values such as functions or Symbols.
-
+Be careful with this method cause it wont work for values such as functions or Symbols.
+- structuredClone
+```js
+const clone = obj => structuredClone(obj);
+```
 
 ### **Concatenation of conditions vs includes**
 
@@ -459,12 +470,29 @@ As you can see this method removes all the unnecesary nesting and makes the cond
 
 Remember to use this thoughtfully, you can't use a return if there's code after this in the same function. You can extract this into a function of course.
 
-## **How to create a variable: var, let, const**
+## **groupBy**
 
-As a general rule we should always use `const`. Use `let` when you need to modify the variable value (remember you can modify object values and arrays even if they are const). And don't ever use `var` as this creates a function/global variable.
+When you want to turn an array into an object based on a value the common way to go in the following:
+```js
+projects.reduce((result, project) => {
+    if ( !result[project.status] ) {
+	result[project.status] = [];
+    }
+    result[project.status].push(project)
+    return result;
+}, {})
+```
+Enven though we can simplyfy it with elements already explained here:
+```js
+projects.reduce((result, project) => {
+    result[project.status] ??= [];
+    result[project.status].push(project)
+    return result;
+}, {})
+```
+It not the best option, cause we have a built in function that achives exactly this more easily:
+```js
+Object.groupBy(projects, ({ status }) => status)
+```
 
-- const: creates a constant value that can't be modified. Objects and arrays are references so you just can't change the reference but you can change the content.
-- let: creates a variable that can be changed limited to the scope in which it was created.
-- var: creates a variable that can be changed with a function/global scope.
-
-
+As you can see this built in function simplify the way of creating objects from an array of objects taking into a ccount a value. Of course you can use this also to group any way you image you have have to provide the function that returns the category of each object.
