@@ -4,7 +4,7 @@
 
 This section is meant for you to be able to grasp some not so common but so useful features of javascript.
 
-## **How to create a variable: var, let, const**
+### **How to create a variable: var, let, const**
 
 As a general rule we should always use `const`. Use `let` when you need to modify the variable value (remember you can modify object values and arrays even if they are const). And don't ever use `var` as this creates a function/global variable.
 
