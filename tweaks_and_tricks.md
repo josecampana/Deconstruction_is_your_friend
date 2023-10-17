@@ -69,6 +69,12 @@ console.log(undefined ? 'no falsable' : 'falsable')
 // falsable
 ```
 
+- NaN
+```js
+console.log(NaN ? 'no falsable' : 'falsable')
+// falsable
+```
+
 ### **Self-invoking functions**
 
 What if you need to create a function to just to run it once? You dont even need to name the function, you can use arrow function syntax and let the function to invoke itself. 
